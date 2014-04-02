@@ -6,11 +6,12 @@
 #  name       :string(255)
 #  email      :string(255)
 #  created_at :datetime
-#  updated_at :datetime
+#  updated_at :datetime	
 #
 
 require 'spec_helper'
-	describe User do
+	
+describe User do
 	
 	before do
     	@user = User.new(name: "Example User", email: "user@example.com",
@@ -24,6 +25,8 @@ require 'spec_helper'
 	it { should respond_to(:password_digest) }
 	it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
+  it { should respond_to(:remember_token) }
+  it { should respond_to(:authenticate) }
 
 	it { should respond_to(:authenticate) }
 
@@ -121,4 +124,8 @@ require 'spec_helper'
 		end
 	end
 
+	describe "remember token" do
+		before { @user.save }
+		its(:remember_token) { should_not be_blank }
+	end
 end
